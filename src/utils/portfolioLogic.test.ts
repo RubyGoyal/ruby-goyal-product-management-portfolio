@@ -1,15 +1,10 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import { CASE_STUDIES } from '../data/portfolioData';
 import {
-  CASE_STUDIES,
-  GITHUB_AUDIT_ITEMS,
-  INTERVIEW_TRACKS,
-} from '../data/portfolioData';
-import {
-  computeReadinessProgress,
   filterCaseStudies,
   getAdjacentCaseStudies,
-  getInterviewTrack,
+  getCategoryCounts,
 } from './portfolioLogic';
 
 test('filterCaseStudies returns all studies when filter is all', () => {
@@ -37,22 +32,11 @@ test('getAdjacentCaseStudies wraps cleanly at list boundaries', () => {
   assert.equal(missing.next, null);
 });
 
-test('getInterviewTrack returns requested track or falls back to first', () => {
-  const b2b = getInterviewTrack(INTERVIEW_TRACKS, 'b2b-saas-pm');
-  assert.equal(b2b.id, 'b2b-saas-pm');
-  assert.ok(b2b.leadCaseStudyIds.includes('embee-content-iq'));
-});
-
-test('computeReadinessProgress deduplicates valid ids and ignores stale ids', () => {
-  const progress = computeReadinessProgress(GITHUB_AUDIT_ITEMS, [
-    'audit-keyword-security',
-    'audit-keyword-security',
-    'unknown-id',
-  ]);
-  assert.equal(progress.completedCount, 1);
-  assert.equal(progress.totalCount, GITHUB_AUDIT_ITEMS.length);
+test('getCategoryCounts totals match total case studies', () => {
+  const counts = getCategoryCounts(CASE_STUDIES);
+  assert.equal(counts.all, CASE_STUDIES.length);
   assert.equal(
-    progress.percent,
-    Math.round((1 / GITHUB_AUDIT_ITEMS.length) * 100)
+    counts['ai-eval'] + counts['enterprise-saas'] + counts['workflow-0to1'],
+    counts.all
   );
 });

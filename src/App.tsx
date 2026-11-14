@@ -4,10 +4,8 @@ import { CaseStudyModal } from './components/CaseStudyModal';
 import { ContactModal } from './components/ContactModal';
 import { ExperienceSection } from './components/ExperienceSection';
 import { Footer } from './components/Footer';
-import { GithubAuditSection } from './components/GithubAuditSection';
 import { Header } from './components/Header';
 import { HeroSection } from './components/HeroSection';
-import { InterviewPrepSection } from './components/InterviewPrepSection';
 import { CASE_STUDIES, type CaseStudy, type FilterCategory } from './data/portfolioData';
 
 export default function App() {
@@ -30,10 +28,6 @@ export default function App() {
         />
 
         <ExperienceSection />
-
-        <InterviewPrepSection onSelectStudy={(study) => setActiveStudy(study)} />
-
-        <GithubAuditSection />
       </main>
 
       <Footer onOpenContact={() => setContactOpen(true)} />

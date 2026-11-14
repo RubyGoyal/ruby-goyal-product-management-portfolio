@@ -10,7 +10,7 @@ interface CaseStudyModalProps {
   onNavigate: (study: CaseStudy) => void;
 }
 
-type ModalTab = 'overview' | 'execution' | 'interview';
+type ModalTab = 'overview' | 'execution';
 
 export function CaseStudyModal({
   study,
@@ -88,7 +88,6 @@ export function CaseStudyModal({
             {[
               { id: 'overview' as ModalTab, label: 'Problem & Trade-offs' },
               { id: 'execution' as ModalTab, label: 'Execution & Evidence' },
-              { id: 'interview' as ModalTab, label: 'Interview Q&A' },
             ].map((tab) => (
               <button
                 key={tab.id}
@@ -227,31 +226,6 @@ export function CaseStudyModal({
                 <p className="text-sm text-slate-600 leading-relaxed">
                   {study.nextIteration}
                 </p>
-              </div>
-            </div>
-          )}
-
-          {activeTab === 'interview' && (
-            <div className="space-y-5">
-              <p className="text-sm text-slate-600">
-                Likely product management interview questions about this build and how to frame your answer around trade-offs, metrics, and user impact:
-              </p>
-              <div className="space-y-4">
-                {study.interviewQuestions.map((qa) => (
-                  <div
-                    key={qa.question}
-                    className="p-5 rounded-xl border border-slate-200 bg-slate-50 space-y-3"
-                  >
-                    <h3 className="font-display text-base font-semibold text-slate-900">
-                      “{qa.question}”
-                    </h3>
-                    <ul className="space-y-2 text-sm text-slate-600 leading-relaxed list-disc pl-5">
-                      {qa.strongAnswerOutline.map((bullet) => (
-                        <li key={bullet}>{bullet}</li>
-                      ))}
-                    </ul>
-                  </div>
-                ))}
               </div>
             </div>
           )}

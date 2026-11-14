@@ -68,7 +68,7 @@ export function ExperienceSection() {
           ))}
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 pt-4">
+        <div id="toolkit" className="grid grid-cols-1 md:grid-cols-3 gap-8 pt-4 scroll-mt-24">
           {TOOLKIT_GROUPS.map((group) => (
             <div key={group.title} className="space-y-2">
               <h3 className="font-display text-sm font-semibold text-slate-900">

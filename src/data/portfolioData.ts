@@ -4,8 +4,6 @@ export type CaseCategory = 'ai-eval' | 'enterprise-saas' | 'workflow-0to1';
 
 export type FilterCategory = 'all' | CaseCategory;
 
-export type InterviewTrackId = 'ai-pm' | 'b2b-saas-pm' | 'technical-pm';
-
 export interface CaseMetric {
   value: string;
   label: string;
@@ -15,11 +13,6 @@ export interface ProductTradeOff {
   decision: string;
   alternativeRejected: string;
   rationale: string;
-}
-
-export interface InterviewQA {
-  question: string;
-  strongAnswerOutline: string[];
 }
 
 export interface CaseStudy {
@@ -44,7 +37,6 @@ export interface CaseStudy {
   executionArchitecture: string[];
   outcomesAndEvidence: string[];
   nextIteration: string;
-  interviewQuestions: InterviewQA[];
 }
 
 export interface ExperiencePillar {
@@ -52,24 +44,6 @@ export interface ExperiencePillar {
   title: string;
   summary: string;
   evidence: string;
-}
-
-export interface InterviewTrack {
-  id: InterviewTrackId;
-  label: string;
-  targetRoles: string;
-  leadCaseStudyIds: string[];
-  sixtySecondPitch: string;
-  keyProofPoints: string[];
-}
-
-export interface AuditItem {
-  id: string;
-  priority: 'Urgent' | 'High' | 'Medium';
-  repoName: string;
-  finding: string;
-  actionToTake: string;
-  interviewImpact: string;
 }
 
 export const PROFILE = {
@@ -150,22 +124,6 @@ export const CASE_STUDIES: CaseStudy[] = [
     ],
     nextIteration:
       'Prioritize change-diff webhooks so downstream CRM users receive alerts only when material status changes occur (new leadership, hiring spikes, or registry updates) rather than re-polling full envelopes.',
-    interviewQuestions: [
-      {
-        question: 'Why did you choose NOT to use an LLM for the core extraction pipeline?',
-        strongAnswerOutline: [
-          'Frame around unit economics, latency, and auditability: 1,000 companies via LLM browsing would cost tens of dollars per run and introduce non-deterministic hallucinations.',
-          'Explain how deterministic rules + a 158-check eval harness achieved 60,261 verifiable facts at $0/run, reserving human/LLM review strictly for QA auditing.',
-        ],
-      },
-      {
-        question: 'How did you incorporate external stakeholder feedback into v5?',
-        strongAnswerOutline: [
-          'Cite the 3 specific edge cases surfaced by Builderr reviewers (stale job JSON-LD, holding-company social bleed, redirect loops).',
-          'Show the product loop: converted each feedback item into both a production rule and a permanent offline regression test.',
-        ],
-      },
-    ],
   },
   {
     id: 'embee-content-iq',
@@ -216,22 +174,6 @@ export const CASE_STUDIES: CaseStudy[] = [
     ],
     nextIteration:
       'Track historical audit scores per URL over time and integrate CMS/HubSpot webhooks to flag pages whose partner product naming drifts after Microsoft/SAP rebrands.',
-    interviewQuestions: [
-      {
-        question: 'How did you decide what belongs in deterministic rules vs. the LLM layer?',
-        strongAnswerOutline: [
-          'Use a clear product matrix: objective compliance (product names, meta length, proof-point presence) must be 100% deterministic, fast, and free.',
-          'Generative AI belongs strictly to synthesis tasks (rewriting weak headlines/CTAs in CXO tone) where deterministic regex cannot help.',
-        ],
-      },
-      {
-        question: 'How would you measure ROI if rolling this out across a 15-person marketing org?',
-        strongAnswerOutline: [
-          'North Star: Time-to-publish (hours spent in editorial/CMO review cycles per asset).',
-          'Guardrails: First-pass compliance rate, organic CTR lift on rewritten meta descriptions, and conversion-CTA presence across top product pages.',
-        ],
-      },
-    ],
   },
   {
     id: 'groww-assist',
@@ -281,15 +223,6 @@ export const CASE_STUDIES: CaseStudy[] = [
     ],
     nextIteration:
       'Add an automated SID-update watcher that re-indexes chunks whenever an AMC publishes an addendum, displaying the exact "as-of" effective date in every response.',
-    interviewQuestions: [
-      {
-        question: 'How do you define success metrics for a regulated fintech AI assistant?',
-        strongAnswerOutline: [
-          'Lead with safety & trust metrics over engagement: Citation Fidelity Rate, Safe Refusal Recall on adversarial advisory prompts, and Zero-Rounding Numerical Accuracy.',
-          'Secondary UX metric: Self-serve factual resolution rate without escalating to human support.',
-        ],
-      },
-    ],
   },
   {
     id: 'embee-gtm-suite',
@@ -340,15 +273,6 @@ export const CASE_STUDIES: CaseStudy[] = [
     ],
     nextIteration:
       'Consolidate the standalone prototypes (`Blog-Content-Studio`, `Website-Copy-Builder`, `keyword`, `embee-blog-studio`) into a single unified content OS with shared brand rules and DataForSEO topic triggers.',
-    interviewQuestions: [
-      {
-        question: 'You built 4 separate content/SEO tools. As a PM, would you keep them separate or consolidate?',
-        strongAnswerOutline: [
-          'Explain why rapid 0-to-1 prototyping justified separate tools (fast validation per persona: SEO analyst vs. blog writer vs. copywriter).',
-          'Now that workflows are validated, the clear platform play is consolidating shared brand dictionaries, brief intake, and eval rules into one unified pipeline.',
-        ],
-      },
-    ],
   },
 ];
 
@@ -380,94 +304,5 @@ export const EXPERIENCE_PILLARS: ExperiencePillar[] = [
     summary:
       'Applying SQL fundamentals, KPI/funnel thinking, MQL intent scoring, and continuous process improvement to eliminate workflow bottlenecks.',
     evidence: 'Lean Six Sigma Yellow Belt · Geekflare, DZone, HackerNoon, SAP author',
-  },
-];
-
-export const INTERVIEW_TRACKS: InterviewTrack[] = [
-  {
-    id: 'ai-pm',
-    label: 'AI Product Manager',
-    targetRoles: 'AI PM · Applied AI / LLM Platform PM · Search & RAG PM',
-    leadCaseStudyIds: ['signalpost', 'groww-assist'],
-    sixtySecondPitch:
-      "I'm a Technical Product Manager with 8+ years in B2B cloud and enterprise software, and over the past year I've built and shipped end-to-end AI products focused on accuracy, evals, and unit economics. For example, on Signalpost, I chose a deterministic verification architecture with 158 offline eval checks over naive LLM scraping—delivering 60,261 evidence-linked company facts across 1,000 companies at $0 inference cost and 93% human-audited precision. On Groww Assist, I designed a SEBI-compliant RAG assistant with strict domain allowlists and safe refusals. My edge is combining deep customer empathy from 8 years in B2B GTM with hands-on technical fluency in TypeScript, RAG guardrails, and evaluation harnesses.",
-    keyProofPoints: [
-      'Lead with trade-offs: why deterministic rules beat LLMs on Signalpost ($0/run, 360s) and why hybrid rules + Claude Sonnet 4.5 worked for EmbeeContentIQ.',
-      'Highlight evaluation maturity: 158 offline checks, Momentic live QA loop, and multi-tier decimal precision tests on Groww Liquid Fund.',
-      'Emphasize compliance & safety: distinguishing `growwmf.in` vs `groww.in` under SEBI regulations.',
-    ],
-  },
-  {
-    id: 'b2b-saas-pm',
-    label: 'B2B SaaS / Growth PM',
-    targetRoles: 'B2B SaaS PM · MarTech / Content Platform PM · Product Growth PM',
-    leadCaseStudyIds: ['embee-content-iq', 'embee-gtm-suite'],
-    sixtySecondPitch:
-      "I bring 8+ years inside B2B IT and cloud ecosystems at Embee Software—bridging product marketing, enterprise positioning across Microsoft and SAP, and lead technical writing—now paired with building internal SaaS tools from 0 to 1. Seeing our teams lose hours in disconnected SEO briefs, trademark compliance checks, and CMO review loops, I built EmbeeContentIQ (a Next.js audit platform encoding 22 canonical product rules and conversion proof points) and Embee Keyword Lab (scoring Indian B2B search intent by MQL potential). I understand both what makes enterprise buyers convert and how to ship software workflows that eliminate internal friction.",
-    keyProofPoints: [
-      'Connect every feature to GTM pipeline: MQL scoring, conversion proof points (2,500+ orgs, 34+ yrs), and faster campaign cycle time.',
-      'Show customer discovery from lived workflow pain: solving CMO revision regressions with word-level diffs and auto-repair.',
-      'Mention Lean Six Sigma Yellow Belt as your structured framework for diagnosing workflow waste.',
-    ],
-  },
-  {
-    id: 'technical-pm',
-    label: 'Technical / Platform PM',
-    targetRoles: 'Technical PM · Developer / Docs-as-Code PM · Data Platform PM',
-    leadCaseStudyIds: ['signalpost', 'embee-content-iq'],
-    sixtySecondPitch:
-      "I'm a Technical Product Manager with a foundation in lead technical writing, enterprise cloud ecosystems, and full-stack TypeScript prototyping. Across Geekflare, DZone, HackerNoon, and SAP, I've translated complex infrastructure into clear developer and buyer adoption—and in my product builds, I write specs and ship working Next.js and Node.js systems myself. Whether architecting server-side CORS-free document parsers in EmbeeContentIQ or designing an auditable 1,000-company data pipeline with GitHub Actions CI and 158 regression tests in Signalpost, I partner seamlessly with engineering on API contracts, edge cases, and measurable reliability.",
-    keyProofPoints: [
-      'Highlight docs-as-code, GitHub Actions CI runs, server-side API proxies (`/api/keywords`, `/api/parse-file`), and TypeScript modularity.',
-      'Explain how your technical writing background makes your PRDs and acceptance criteria unusually crisp for engineering teams.',
-      'Use Signalpost v5 feedback-to-regression-test loop to demonstrate disciplined product quality ownership.',
-    ],
-  },
-];
-
-export const GITHUB_AUDIT_ITEMS: AuditItem[] = [
-  {
-    id: 'audit-keyword-security',
-    priority: 'Urgent',
-    repoName: 'keyword',
-    finding:
-      'The README publicly displays a team email (`ruby.goyal@embee.co.in`) and references resetting a DataForSEO password that was "shared in chat".',
-    actionToTake:
-      'Confirm git commit history contains no API keys, rotate the DataForSEO password if not already done, and replace the deployment-warning README with a clean PM case study + redacted `.env.example`.',
-    interviewImpact:
-      'Hiring managers and technical interviewers frequently click repo links; removing sensitive operational notes protects your credibility and security hygiene.',
-  },
-  {
-    id: 'audit-missing-readmes',
-    priority: 'High',
-    repoName: 'Blog-Content-Studio & Website-Copy-Builder',
-    finding:
-      'Both repositories currently have no `README.md` (returning 404), and `Blog-Content-Studio` has a typo ("gutes posts") in its GitHub description.',
-    actionToTake:
-      'Fix the description typo to "guest posts" and add a concise 5-part PM README (Problem, User Flow, Architecture, Key Decisions, Next Steps) — or archive/consolidate them under a single suite overview if superseded by `embee-blog-studio`.',
-    interviewImpact:
-      'A featured repo on your profile README without a README.md looks unfinished to a recruiter spending 30 seconds scanning your GitHub.',
-  },
-  {
-    id: 'audit-business-outcomes',
-    priority: 'High',
-    repoName: 'embee-content-iq-v4 & Groww-Assist-Gemini',
-    finding:
-      'Both have strong technical READMEs, but lack visual screenshots/walkthroughs and explicit business/product KPIs (e.g., time saved per audit, eval pass rate table).',
-    actionToTake:
-      'Add 2 annotated UI screenshots (like `embee-blog-studio` already has with `docs/draft.png`), a "Product Metrics & Guardrails" table, and a 3-bullet "v2 Roadmap" section.',
-    interviewImpact:
-      'Transforms code repositories into unmistakable Product Management artifacts within the first scroll.',
-  },
-  {
-    id: 'audit-live-demos',
-    priority: 'Medium',
-    repoName: 'Groww-Assist-Gemini & PM Portfolio',
-    finding:
-      '`signalpost`, `embee-blog-studio`, `embee-content-iq-v4`, and `keyword` now have live URLs, while `Groww-Assist-Gemini` and your new portfolio repo still need deployed links pinned in GitHub About.',
-    actionToTake:
-      'Deploy this portfolio (e.g., to Vercel) and pin the live URL on `ruby-goyal-product-management-portfolio`, plus add a live demo or recorded walkthrough to `Groww-Assist-Gemini`.',
-    interviewImpact:
-      'Lets non-technical PM interviewers test your product live in 10 seconds during or before a screen.',
   },
 ];

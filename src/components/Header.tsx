@@ -6,10 +6,10 @@ interface HeaderProps {
 }
 
 const NAV_LINKS = [
-  { href: '#case-studies', label: 'Case Studies' },
-  { href: '#pm-approach', label: 'PM Approach' },
-  { href: '#interview-prep', label: 'Interview Prep' },
-  { href: '#github-audit', label: 'GitHub Audit' },
+  { href: '#case-studies', label: 'Case Studies', external: false },
+  { href: '#pm-approach', label: 'PM Approach', external: false },
+  { href: '#toolkit', label: 'Toolkit', external: false },
+  { href: 'https://github.com/RubyGoyal', label: 'GitHub', external: true },
 ];
 
 export function Header({ onOpenContact }: HeaderProps) {
@@ -33,6 +33,9 @@ export function Header({ onOpenContact }: HeaderProps) {
             <a
               key={link.href}
               href={link.href}
+              {...(link.external
+                ? { target: '_blank', rel: 'noopener noreferrer' }
+                : {})}
               className="hover:text-slate-900 hover:underline underline-offset-4 decoration-slate-300 transition-colors whitespace-nowrap shrink-0 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#2563EB] rounded-sm"
             >
               {link.label}
@@ -70,6 +73,9 @@ export function Header({ onOpenContact }: HeaderProps) {
             <a
               key={link.href}
               href={link.href}
+              {...(link.external
+                ? { target: '_blank', rel: 'noopener noreferrer' }
+                : {})}
               onClick={() => setMobileMenuOpen(false)}
               className="py-1.5 text-sm font-medium text-slate-700 hover:text-slate-900"
             >

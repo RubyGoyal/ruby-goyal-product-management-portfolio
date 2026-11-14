@@ -1,10 +1,4 @@
-import type {
-  AuditItem,
-  CaseStudy,
-  FilterCategory,
-  InterviewTrack,
-  InterviewTrackId,
-} from '../data/portfolioData';
+import type { CaseCategory, CaseStudy, FilterCategory } from '../data/portfolioData';
 
 export function filterCaseStudies(
   studies: CaseStudy[],
@@ -29,24 +23,19 @@ export function getAdjacentCaseStudies(
   return { previous, next };
 }
 
-export function getInterviewTrack(
-  tracks: InterviewTrack[],
-  trackId: InterviewTrackId
-): InterviewTrack {
-  return tracks.find((t) => t.id === trackId) ?? tracks[0];
-}
-
-export function computeReadinessProgress(
-  items: AuditItem[],
-  completedIds: string[]
-): { completedCount: number; totalCount: number; percent: number } {
-  if (items.length === 0) {
-    return { completedCount: 0, totalCount: 0, percent: 100 };
+export function getCategoryCounts(
+  studies: CaseStudy[]
+): Record<FilterCategory, number> {
+  const counts: Record<CaseCategory, number> = {
+    'ai-eval': 0,
+    'enterprise-saas': 0,
+    'workflow-0to1': 0,
+  };
+  for (const study of studies) {
+    counts[study.category] += 1;
   }
-  const validIds = new Set(items.map((item) => item.id));
-  const uniqueCompleted = new Set(completedIds.filter((id) => validIds.has(id)));
-  const completedCount = uniqueCompleted.size;
-  const totalCount = items.length;
-  const percent = Math.round((completedCount / totalCount) * 100);
-  return { completedCount, totalCount, percent };
+  return {
+    all: studies.length,
+    ...counts,
+  };
 }

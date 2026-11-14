@@ -1,4 +1,4 @@
-import { ArrowRight, FileText } from 'lucide-react';
+import { ArrowRight, ExternalLink } from 'lucide-react';
 import { useState } from 'react';
 import { HERO_OUTCOMES, PROFILE } from '../data/portfolioData';
 import { HERO_IMAGE } from '../data/portfolioImages';
@@ -36,11 +36,13 @@ export function HeroSection() {
                   <ArrowRight className="w-4 h-4" />
                 </a>
                 <a
-                  href="#interview-prep"
+                  href={PROFILE.githubUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 py-2 text-sm font-medium text-slate-700 hover:text-[#2563EB] transition-colors whitespace-nowrap shrink-0 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#2563EB] rounded-sm"
                 >
-                  <FileText className="w-4 h-4" />
-                  Interview Pitch &amp; GitHub Review
+                  GitHub (@RubyGoyal)
+                  <ExternalLink className="w-4 h-4" />
                 </a>
               </div>
 
