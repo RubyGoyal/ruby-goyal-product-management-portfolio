@@ -178,6 +178,7 @@ export const CASE_STUDIES: CaseStudy[] = [
     timeframe: '2026 · Embee Software GTM',
     stackSummary: 'Next.js 14 · TypeScript · Claude Sonnet 4.5 · Cheerio · PDF/DOCX Parsing',
     repoUrl: 'https://github.com/RubyGoyal/embee-content-iq-v4',
+    liveUrl: 'https://embee-content-iq-v4.vercel.app',
     imageKey: 'content-iq',
     featured: true,
     headlineMetric: { value: '22 Rules', label: 'Canonical Microsoft, SAP & Cybersecurity checks' },
@@ -461,11 +462,11 @@ export const GITHUB_AUDIT_ITEMS: AuditItem[] = [
   {
     id: 'audit-live-demos',
     priority: 'Medium',
-    repoName: 'embee-content-iq-v4 & Groww-Assist-Gemini',
+    repoName: 'Groww-Assist-Gemini & PM Portfolio',
     finding:
-      '`signalpost` and `embee-blog-studio` have working live links, while `embee-content-iq-v4` and `Groww-Assist-Gemini` require cloning locally to view.',
+      '`signalpost`, `embee-blog-studio`, `embee-content-iq-v4`, and `keyword` now have live URLs, while `Groww-Assist-Gemini` and your new portfolio repo still need deployed links pinned in GitHub About.',
     actionToTake:
-      'Deploy `embee-content-iq-v4` to Vercel (it already works in zero-API-key mode!) and pin its live URL in the GitHub repo "About" sidebar.',
+      'Deploy this portfolio (e.g., to Vercel) and pin the live URL on `ruby-goyal-product-management-portfolio`, plus add a live demo or recorded walkthrough to `Groww-Assist-Gemini`.',
     interviewImpact:
       'Lets non-technical PM interviewers test your product live in 10 seconds during or before a screen.',
   },

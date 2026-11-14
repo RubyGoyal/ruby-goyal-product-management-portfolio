@@ -87,14 +87,26 @@ function CaseStudyCard({
           <ArrowUpRight className="w-4 h-4" />
         </button>
 
-        <a
-          href={study.repoUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-xs font-medium text-slate-500 hover:text-slate-900 transition-colors py-1.5 whitespace-nowrap"
-        >
-          GitHub Repo
-        </a>
+        <div className="flex items-center gap-4">
+          {study.liveUrl && (
+            <a
+              href={study.liveUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-xs font-medium text-slate-700 hover:text-[#2563EB] transition-colors py-1.5 whitespace-nowrap"
+            >
+              Live Demo
+            </a>
+          )}
+          <a
+            href={study.repoUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-xs font-medium text-slate-500 hover:text-slate-900 transition-colors py-1.5 whitespace-nowrap"
+          >
+            GitHub Repo
+          </a>
+        </div>
       </div>
     </article>
   );
